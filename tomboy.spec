@@ -2,8 +2,8 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.6.1
-Release: %mkrel 3
+Version: 0.6.3
+Release: %mkrel 1
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL
@@ -25,7 +25,7 @@ BuildRequires: perl-XML-Parser
 BuildRequires: ImageMagick
 BuildRequires: automake1.8
 BuildRequires: intltool
-BuildRequires: gnome-doc-utils libxslt-proc
+BuildRequires: gnome-doc-utils
 BuildRequires: desktop-file-utils
 #gw we need an UTF-8 locale for gmcs to allow non-ASCII source files
 BuildRequires: locales-en
@@ -136,5 +136,3 @@ rm -rf ${RPM_BUILD_ROOT}
 %_datadir/dbus-1/services/org.gnome.Tomboy.service
 %endif
 %{_menudir}/%{name}
-
-
