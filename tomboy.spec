@@ -2,7 +2,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.6.3
+Version: 0.7.1
 Release: %mkrel 1
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
