@@ -2,7 +2,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.7.1
+Version: 0.7.2
 Release: %mkrel 3
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -70,7 +70,6 @@ export MONO_SHARED_DIR=`pwd`
 
 %{__rm} -rf ${RPM_BUILD_ROOT} %name.lang
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
-install -m 644 Tomboy/Plugins/NoteOfTheDay.dll $RPM_BUILD_ROOT%{_libdir}/%{name}/Plugins/
 %{__rm} -f $RPM_BUILD_ROOT%{_libdir}/%{name}/lib%{name}.la
 %find_lang %name --with-gnome
 for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
@@ -130,8 +129,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
-%{_libdir}/tomboy/Plugins/*
-%_libdir/pkgconfig/tomboy-plugins.pc
+%{_libdir}/%{name}/Mono.Addins*
+%{_libdir}/%{name}/addins/
+%_libdir/pkgconfig/tomboy-addins.pc
 %if %build_dbus
 %_datadir/dbus-1/services/org.gnome.Tomboy.service
 %endif
