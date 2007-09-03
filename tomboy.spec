@@ -2,13 +2,14 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.7.5
+Version: 0.7.6
 Release: %mkrel 1
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
+Patch: tomboy-0.7.6-dllconfig.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -34,6 +35,7 @@ Requires: %mklibname gtkspell 0
 Requires: %mklibname panel-applet-2_ 0
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
+%define _requires_exceptions libtomboy.so
 
 %description
 Tomboy is a desktop note-taking application for Linux and Unix. Simple
@@ -47,6 +49,7 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
+%patch -p1
 rm -rf www/CVS www/img/CVS
 
 %build
@@ -74,18 +77,6 @@ for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
 echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
 done
 
-# menu
-mkdir -p %{buildroot}/%{_menudir}
-cat > %{buildroot}/%{_menudir}/%{name} <<EOF
-?package(%{name}): \
-command="%{_bindir}/%name --tray-icon" \
-title="Tomboy" \
-longtitle="Desktop note-taking application" \
-section="Office/Accessories" \
-needs="x11" \
-icon="%name.png" \
-startup_notify="true" xdg="true"
-EOF
 # fix desktop entries
 perl -pi -e "s^\@VERSION\@^%version^" %buildroot%_datadir/applications/*
 desktop-file-install --vendor="" \
@@ -116,6 +107,7 @@ rm -rf ${RPM_BUILD_ROOT}
 # www
 %_sysconfdir/gconf/schemas/%name.schemas
 %{_bindir}/%{name}
+%{_bindir}/tomboy-panel
 %dir %{_libdir}/%{name}
 %_mandir/man1/%name.1*
 %_datadir/applications/*
@@ -124,6 +116,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %_datadir/omf/%name
 %_datadir/omf/%name/tomboy-C.omf
 %{_libdir}/%{name}/libtomboy.so
+%{_libdir}/%{name}/libprintnotes.*
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
@@ -133,4 +126,3 @@ rm -rf ${RPM_BUILD_ROOT}
 %if %build_dbus
 %_datadir/dbus-1/services/org.gnome.Tomboy.service
 %endif
-%{_menudir}/%{name}
