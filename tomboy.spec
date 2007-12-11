@@ -103,7 +103,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files -f %name.lang
 %defattr(-,root,root,-)
-%doc ChangeLog NEWS README AUTHORS
+%doc NEWS README AUTHORS
 # www
 %_sysconfdir/gconf/schemas/%name.schemas
 %{_bindir}/%{name}
