@@ -10,7 +10,6 @@ License:        LGPL
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
 Patch: tomboy-0.7.6-dllconfig.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
 BuildRequires:  gnome-sharp2
