@@ -1,9 +1,10 @@
 %define build_dbus 1
+%define external_addins 1
 %define filename %name-%version
 
 Name:           tomboy
 Version: 0.9.2
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL
@@ -18,6 +19,9 @@ BuildRequires:  libgnomeprintui-devel
 BuildRequires:  mono-devel
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp
+%if %external_addins
+BuildRequires:  mono-addins
+%endif
 %if %build_dbus
 BuildRequires: ndesk-dbus-glib
 %endif
@@ -60,6 +64,9 @@ export MONO_SHARED_DIR=`pwd`
 %define __libtoolize true
 %endif
 %configure2_5x --enable-galago=yes --disable-scrollkeeper \
+%if %external_addins
+  --with-mono-addins=system \
+%endif
 %if !%build_dbus
   --enable-dbus=no
 %endif
@@ -119,7 +126,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
+%if !%external_addins
 %{_libdir}/%{name}/Mono.Addins*
+%endif
 %{_libdir}/%{name}/addins/
 %_libdir/pkgconfig/tomboy-addins.pc
 %if %build_dbus
