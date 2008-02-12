@@ -3,7 +3,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.9.5
+Version: 0.9.6
 Release: %mkrel 1
 Summary: Tomboy is a desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -120,7 +120,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %_mandir/man1/%name.1*
 %_datadir/applications/*
 %_datadir/icons/hicolor/*/apps/tomboy*
-%_datadir/pixmaps/tomboy.png
+%_datadir/%name
 %dir %_datadir/omf/%name
 %_datadir/omf/%name/tomboy-C.omf
 %{_libdir}/%{name}/libtomboy.so
