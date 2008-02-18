@@ -4,7 +4,7 @@
 
 Name:           tomboy
 Version: 0.9.6
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL
