@@ -3,14 +3,13 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.9.6
-Release: %mkrel 2
+Version: 0.9.7
+Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
-Patch: tomboy-0.9.5-new-gnome-sharp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -53,8 +52,6 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
-%patch -p1
-automake
 rm -rf www/CVS www/img/CVS
 
 %build
