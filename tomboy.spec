@@ -3,7 +3,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.9.8
+Version: 0.10.0
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
