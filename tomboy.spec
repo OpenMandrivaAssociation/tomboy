@@ -13,7 +13,7 @@ Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
-BuildRequires:  gnome-sharp2
+BuildRequires:  gnome-sharp2-devel
 BuildRequires:  libpanel-applet-devel
 BuildRequires:  libgnomeprintui-devel
 BuildRequires:  mono-devel
