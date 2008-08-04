@@ -3,7 +3,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.11.0
+Version: 0.11.1
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -71,7 +71,8 @@ export MONO_SHARED_DIR=`pwd`
   --enable-dbus=no
 %endif
 
-%make
+#gw parallel make broken in 0.11.1
+make
 
 %install
 
@@ -128,6 +129,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/%{name}/libtomboy.so
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
+%{_libdir}/%{name}/Tomboy.exe.mdb
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
 %if !%external_addins
 %{_libdir}/%{name}/Mono.Addins*
