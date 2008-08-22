@@ -3,8 +3,8 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.11.2
-Release: %mkrel 2
+Version: 0.11.3
+Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 License:        LGPL+ and GPLv2+ and MIT
@@ -13,7 +13,6 @@ License:        LGPL+ and GPLv2+ and MIT
 # Mono.Addins is MIT
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
-Patch: tomboy-0.11.2-new-gnome-desktop-sharp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -55,8 +54,6 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
-%patch -p1
-autoconf
 rm -rf www/CVS www/img/CVS
 
 %build
