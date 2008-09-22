@@ -3,7 +3,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.11.3
+Version: 0.12.0
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -79,7 +79,7 @@ make
 
 %{__rm} -rf ${RPM_BUILD_ROOT} %name.lang
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
-%{__rm} -f $RPM_BUILD_ROOT%{_libdir}/%{name}/lib%{name}.la
+%{__rm} -f $RPM_BUILD_ROOT%{_libdir}/%{name}/lib*.la
 %find_lang %name --with-gnome
 for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
 echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
@@ -128,6 +128,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %_datadir/omf/%name
 %_datadir/omf/%name/tomboy-C.omf
 %{_libdir}/%{name}/libtomboy.so
+%{_libdir}/%{name}/libprintnotes.so
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/%{name}/Tomboy.exe.mdb
