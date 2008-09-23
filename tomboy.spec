@@ -19,6 +19,7 @@ BuildRequires:  gtkspell-devel
 BuildRequires:  gnome-sharp2-devel
 BuildRequires:  gnome-desktop-sharp-devel
 BuildRequires:  libpanel-applet-devel
+BuildRequires:  libgnomeprintui-devel
 BuildRequires:  mono-devel
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp
