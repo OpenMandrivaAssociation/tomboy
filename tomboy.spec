@@ -29,7 +29,7 @@ BuildRequires:  mono-addins
 %if %build_dbus
 BuildRequires: ndesk-dbus-glib
 %endif
-BuildRequires: ImageMagick
+BuildRequires: imagemagick
 BuildRequires: automake1.8
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils
