@@ -12,6 +12,7 @@ Group:          Graphical desktop/GNOME
 License:        LGPL+ and GPLv2+
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
+Patch: tomboy-0.13.4-no-libgnomeprint.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -54,7 +55,8 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
-rm -rf www/CVS www/img/CVS
+%patch -p1
+autoconf
 
 %build
 export LC_ALL=en_US.UTF-8
