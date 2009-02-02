@@ -3,14 +3,13 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 0.13.3
+Version: 0.13.4
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
-License:        LGPL+ and GPLv2+ and MIT
 # Tomboy itself is LGPL+
 # libtomboy contains GPL+ code
-# Mono.Addins is MIT
+License:        LGPL+ and GPLv2+
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -19,8 +18,8 @@ BuildRequires:  gtkspell-devel
 BuildRequires:  gnome-sharp2-devel
 BuildRequires:  gnome-desktop-sharp-devel
 BuildRequires:  libpanel-applet-devel
-BuildRequires:  libgnomeprintui-devel
 BuildRequires:  mono-devel
+BuildRequires:  mono-addins
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp
 %if %external_addins
@@ -129,7 +128,6 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %_datadir/omf/%name
 %_datadir/omf/%name/tomboy-C.omf
 %{_libdir}/%{name}/libtomboy.so
-%{_libdir}/%{name}/libprintnotes.so
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/%{name}/Tomboy.exe.mdb
