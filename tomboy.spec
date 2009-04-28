@@ -12,6 +12,8 @@ Group:          Graphical desktop/GNOME
 License:        LGPL+ and GPLv2+
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
+#http://bugzilla.gnome.org/show_bug.cgi?id=580567
+Patch: tomboy-0.14.1-gmime2.4.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -21,7 +23,7 @@ BuildRequires:  libpanel-applet-devel
 BuildRequires:  mono-devel
 BuildRequires:  mono-addins
 BuildRequires:  galago-sharp
-BuildRequires:  gmime-sharp
+BuildRequires:  gmime-sharp >= 2.4.0
 %if %external_addins
 BuildRequires:  mono-addins
 %endif
@@ -54,6 +56,8 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
+%patch -p1 
+autoreconf -fi
 
 %build
 export LC_ALL=en_US.UTF-8
