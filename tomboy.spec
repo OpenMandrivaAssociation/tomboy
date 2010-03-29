@@ -1,9 +1,8 @@
 %define build_dbus 1
-%define external_addins 1
 %define filename %name-%version
 
 Name:           tomboy
-Version: 1.1.4
+Version: 1.2.0
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -22,9 +21,6 @@ BuildRequires:  mono-devel
 BuildRequires:  mono-addins
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp >= 2.4.0
-%if %external_addins
-BuildRequires:  mono-addins
-%endif
 %if %build_dbus
 BuildRequires: ndesk-dbus-glib
 %endif
@@ -59,14 +55,8 @@ reorganizing them.
 export LC_ALL=en_US.UTF-8
 #gw trying to work around a build bot problem
 export MONO_SHARED_DIR=`pwd`
-%if %mdkversion <= 1000
-%define __cputoolize true
-%define __libtoolize true
-%endif
 %configure2_5x --enable-galago=yes --disable-scrollkeeper \
-%if %external_addins
-  --with-mono-addins=system \
-%endif
+  --disable-update-mimedb \
 %if !%build_dbus
   --enable-dbus=no
 %endif
@@ -123,6 +113,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %_mandir/man1/%name.1*
 %_datadir/applications/*
 %_datadir/icons/hicolor/*/apps/tomboy*
+%_datadir/icons/hicolor/*/mimetypes/application-x-note.*
+%_datadir/mime/packages/tomboy.xml
 %_datadir/%name
 %dir %_datadir/omf/%name
 %_datadir/omf/%name/tomboy-C.omf
@@ -131,9 +123,6 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/%{name}/Tomboy.exe.mdb
 %{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
-%if !%external_addins
-%{_libdir}/%{name}/Mono.Addins*
-%endif
 %{_libdir}/%{name}/addins/
 %_libdir/pkgconfig/tomboy-addins.pc
 %if %build_dbus
