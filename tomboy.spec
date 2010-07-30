@@ -2,7 +2,7 @@
 %define filename %name-%version
 
 Name:           tomboy
-Version: 1.2.1
+Version: 1.3.1
 Release: %mkrel 1
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
@@ -10,13 +10,12 @@ Group:          Graphical desktop/GNOME
 # libtomboy contains GPL+ code
 License:        LGPL+ and GPLv2+
 URL:            http://www.gnome.org/projects/tomboy/
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/tomboy/%{filename}.tar.bz2
+Source0:        http://ftp.gnome.org/pub/GNOME/sources/%name/%{filename}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
 BuildRequires:  gnome-sharp2-devel
 BuildRequires:  gnome-desktop-sharp-devel
-BuildRequires:  libpanel-applet-devel
 BuildRequires:  mono-devel
 BuildRequires:  mono-addins
 BuildRequires:  galago-sharp
@@ -70,9 +69,9 @@ make
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 %{__rm} -f $RPM_BUILD_ROOT%{_libdir}/%{name}/lib*.la
 %find_lang %name --with-gnome
-for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
-echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
-done
+#for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
+#echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
+#done
 
 # fix desktop entries
 perl -pi -e "s^\@VERSION\@^%version^" %buildroot%_datadir/applications/*
@@ -108,7 +107,6 @@ rm -rf ${RPM_BUILD_ROOT}
 # www
 %_sysconfdir/gconf/schemas/%name.schemas
 %{_bindir}/%{name}
-%{_bindir}/tomboy-panel
 %dir %{_libdir}/%{name}
 %_mandir/man1/%name.1*
 %_datadir/applications/*
@@ -116,13 +114,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %_datadir/icons/hicolor/*/mimetypes/application-x-note.*
 %_datadir/mime/packages/tomboy.xml
 %_datadir/%name
-%dir %_datadir/omf/%name
-%_datadir/omf/%name/tomboy-C.omf
+#%dir %_datadir/omf/%name
+#%_datadir/omf/%name/tomboy-C.omf
 %{_libdir}/%{name}/libtomboy.so
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/%{name}/Tomboy.exe.mdb
-%{_libdir}/bonobo/servers/GNOME_TomboyApplet.server
 %{_libdir}/%{name}/addins/
 %_libdir/pkgconfig/tomboy-addins.pc
 %if %build_dbus
