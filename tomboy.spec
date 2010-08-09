@@ -17,7 +17,7 @@ BuildRequires:  gtkspell-devel
 BuildRequires:  gnome-sharp2-devel
 BuildRequires:  gnome-desktop-sharp-devel
 BuildRequires:  mono-devel
-BuildRequires:  mono-addins
+BuildRequires:  mono-addins-devel
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp >= 2.4.0
 %if %build_dbus
