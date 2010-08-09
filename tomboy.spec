@@ -21,7 +21,7 @@ BuildRequires:  mono-addins
 BuildRequires:  galago-sharp
 BuildRequires:  gmime-sharp >= 2.4.0
 %if %build_dbus
-BuildRequires: ndesk-dbus-glib
+BuildRequires: ndesk-dbus-glib-devel
 %endif
 BuildRequires: imagemagick
 BuildRequires: automake1.8
