@@ -3,7 +3,7 @@
 
 Name:           tomboy
 Version: 1.4.2
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 # Tomboy itself is LGPL+
@@ -11,6 +11,7 @@ Group:          Graphical desktop/GNOME
 License:        LGPL+ and GPLv2+
 URL:            http://www.gnome.org/projects/tomboy/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%name/%{filename}.tar.bz2
+Patch0:		tomboy-1.4.2-CVE-2010-4005.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires:  gtkspell-devel
@@ -49,6 +50,7 @@ reorganizing them.
 
 %prep
 %setup -q -n %filename
+%patch0 -p1 -b .CVE-2010-4005
 
 %build
 export LC_ALL=en_US.UTF-8
