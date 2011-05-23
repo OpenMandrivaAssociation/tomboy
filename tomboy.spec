@@ -3,7 +3,7 @@
 
 Name:           tomboy
 Version: 1.6.1
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Desktop note-taking application for Linux and Unix
 Group:          Graphical desktop/GNOME
 # Tomboy itself is LGPL+
