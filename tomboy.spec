@@ -63,9 +63,9 @@ make
 
 %install
 
-%{__rm} -rf ${RPM_BUILD_ROOT} %name.lang
+%{__rm} -rf %{buildroot} %name.lang
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
-%{__rm} -f $RPM_BUILD_ROOT%{_libdir}/%{name}/lib*.la
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/lib*.la
 %find_lang %name --with-gnome
 #for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
 #echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
@@ -76,10 +76,10 @@ perl -pi -e "s^\@VERSION\@^%version^" %buildroot%_datadir/applications/*
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="X-MandrivaLinux-Office-Accessories" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/tomboy.desktop
+  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/tomboy.desktop
 
 %clean
-rm -rf ${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post
