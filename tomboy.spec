@@ -26,6 +26,7 @@ BuildRequires: ndesk-dbus-glib-devel
 BuildRequires: imagemagick
 BuildRequires: automake1.8
 BuildRequires: intltool
+BuildRequires: libGConf2-devel
 BuildRequires: gnome-doc-utils
 BuildRequires: desktop-file-utils
 #gw we need an UTF-8 locale for gmcs to allow non-ASCII source files
