@@ -1,40 +1,37 @@
-%define build_dbus 1
-%define filename %name-%version
+%define url_ver	%(echo %{version}|cut -d. -f1,2)
 
-Name:           tomboy
-Version: 1.6.1
-Release: %mkrel 3
-Summary: Desktop note-taking application for Linux and Unix
-Group:          Graphical desktop/GNOME
+Name:		tomboy
+Version:	1.12.2
+Release:	%mkrel 1
+Summary:	Desktop note-taking application for Linux and Unix
+Group:		Graphical desktop/GNOME
 # Tomboy itself is LGPL+
 # libtomboy contains GPL+ code
-License:        LGPL+ and GPLv2+
-URL:            http://www.gnome.org/projects/tomboy/
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/%name/%{filename}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
-
-BuildRequires:  gtkspell-devel
-BuildRequires:  gnome-sharp2-devel
-BuildRequires:  gnome-desktop-sharp-devel
-BuildRequires:  mono-devel
-BuildRequires:  mono-addins-devel
-BuildRequires:  galago-sharp
-BuildRequires:  gmime-sharp >= 2.4.0
-%if %build_dbus
-BuildRequires: ndesk-dbus-glib-devel
-%endif
-BuildRequires: imagemagick
-BuildRequires: automake1.8
-BuildRequires: intltool
-BuildRequires: libGConf2-devel
-BuildRequires: gnome-doc-utils
-BuildRequires: desktop-file-utils
+License:	LGPL+ and GPLv2+
+URL:		http://www.gnome.org/projects/tomboy/
+Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 #gw we need an UTF-8 locale for gmcs to allow non-ASCII source files
-BuildRequires: locales-en
-#gw dllopened:
-Requires: %mklibname gtkspell 0
-Requires: %mklibname panel-applet-2_ 0
-%define _requires_exceptions libtomboy.so
+BuildRequires:	locales-en
+###
+#for autoreconf
+BuildRequires:	intltool
+BuildRequires:	gettext-devel
+BuildRequires:	pkgconfig(gconf-2.0)
+BuildRequires:	pkgconfig(gnome-doc-utils)
+###
+#BuildRequires:	mono(gmcs)
+BuildRequires:	mono
+BuildRequires:	pkgconfig(mono) >= 1.9.1
+BuildRequires:	pkgconfig(mono-addins)
+#BuildRequires:  pkgconfig(mono-nunit)
+BuildRequires:	pkgconfig(gtk+-2.0) >= 2.14.0
+BuildRequires:	pkgconfig(dbus-sharp-glib-1.0) >= 0.3
+BuildRequires:	pkgconfig(gconf-sharp-2.0)
+BuildRequires:	pkgconfig(gtkspell-2.0) >= 2.0.9
+BuildRequires:	pkgconfig(gmime-sharp-2.6)
+BuildRequires:	pkgconfig(ice)
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(galago-sharp) >= 0.5.0
 
 %description
 Tomboy is a desktop note-taking application for Linux and Unix. Simple
@@ -47,80 +44,45 @@ links between your ideas won't break, even when renaming and
 reorganizing them.
 
 %prep
-%setup -q -n %filename
+%setup -q
 
 %build
-export LC_ALL=en_US.UTF-8
-#gw trying to work around a build bot problem
-export MONO_SHARED_DIR=`pwd`
-%configure2_5x --enable-galago=yes --disable-scrollkeeper \
-  --disable-update-mimedb \
-%if !%build_dbus
-  --enable-dbus=no
-%endif
-
-#gw parallel make broken in 0.11.1
+%configure2_5x \
+	--enable-galago=no \
+	--enable-panel-applet=no \
+	--disable-scrollkeeper \
+	--disable-update-mimedb \
+	--disable-schemas-install \
+	--enable-gnome=no \
+	--enable-tests=no
 make
 
 %install
+%makeinstall_std
 
-%{__rm} -rf %{buildroot} %name.lang
-GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/lib*.la
-%find_lang %name --with-gnome
-#for omf in %buildroot%_datadir/omf/*/*-{??_??,??}.omf;do
-#echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
-#done
+%find_lang %{name} --with-gnome
 
-# fix desktop entries
-perl -pi -e "s^\@VERSION\@^%version^" %buildroot%_datadir/applications/*
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="X-MandrivaLinux-Office-Accessories" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/tomboy.desktop
-
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post
-%post_install_gconf_schemas %name
-%update_menus
-%update_icon_cache hicolor
-%update_scrollkeeper
-%endif
+#we don't want these
+rm -f %{buildroot}%{_libdir}/tomboy/libtomboy.la
 
 %preun
-%preun_uninstall_gconf_schemas %name
+%preun_uninstall_gconf_schemas %{name}
 
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%clean_icon_cache hicolor
-%clean_scrollkeeper
-%endif
-
-%files -f %name.lang
-%defattr(-,root,root,-)
+%files -f %{name}.lang
 %doc NEWS README AUTHORS
-# www
-%_sysconfdir/gconf/schemas/%name.schemas
+%{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
-%_mandir/man1/%name.1*
-%_datadir/applications/*
-%_datadir/icons/hicolor/*/apps/tomboy*
-%_datadir/icons/hicolor/*/mimetypes/application-x-note.*
-%_datadir/mime/packages/tomboy.xml
-%_datadir/%name
-#%dir %_datadir/omf/%name
-#%_datadir/omf/%name/tomboy-C.omf
+%{_mandir}/man1/%name.1*
+%{_datadir}/applications/*
+%{_datadir}/icons/hicolor/*/apps/tomboy*
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-note.*
+%{_datadir}/mime/packages/tomboy.xml
+%{_datadir}/%{name}
 %{_libdir}/%{name}/libtomboy.so
 %{_libdir}/%{name}/Tomboy.exe
 %{_libdir}/%{name}/Tomboy.exe.config
 %{_libdir}/%{name}/Tomboy.exe.mdb
 %{_libdir}/%{name}/addins/
-%_libdir/pkgconfig/tomboy-addins.pc
-%if %build_dbus
-%_datadir/dbus-1/services/org.gnome.Tomboy.service
-%endif
+%{_libdir}/pkgconfig/tomboy-addins.pc
+%{_datadir}/dbus-1/services/org.gnome.Tomboy.service
