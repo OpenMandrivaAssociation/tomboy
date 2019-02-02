@@ -1,8 +1,8 @@
 %define url_ver	%(echo %{version}|cut -d. -f1,2)
 
 Name:		tomboy
-Version:	1.12.2
-Release:	2
+Version:	1.15.9
+Release:	1
 Summary:	Desktop note-taking application for Linux and Unix
 Group:		Graphical desktop/GNOME
 # Tomboy itself is LGPL+
