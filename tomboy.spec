@@ -14,6 +14,7 @@ Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}
 BuildRequires:	locales-en
 ###
 #for autoreconf
+BuildRequires:	itstool
 BuildRequires:	intltool
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(gconf-2.0)
