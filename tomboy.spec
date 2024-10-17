@@ -8,7 +8,7 @@ Group:		Graphical desktop/GNOME
 # Tomboy itself is LGPL+
 # libtomboy contains GPL+ code
 License:	LGPL+ and GPLv2+
-URL:		http://www.gnome.org/projects/tomboy/
+URL:		https://www.gnome.org/projects/tomboy/
 Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 #gw we need an UTF-8 locale for gmcs to allow non-ASCII source files
 BuildRequires:	locales-en
