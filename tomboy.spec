@@ -11,6 +11,11 @@ License:	LGPL+ and GPLv2+
 URL:		https://www.gnome.org/projects/tomboy/
 Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 #gw we need an UTF-8 locale for gmcs to allow non-ASCII source files
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	locales-en
 ###
 #for autoreconf
